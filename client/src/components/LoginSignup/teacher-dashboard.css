@@ -1,0 +1,192 @@
+/* Modernized Styles with Updated Preferences */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@font-face {
+  font-family: Gilroy;
+  src: url(../../assets/Gilroy/Gilroy-Light.otf);
+}
+@font-face {
+  font-family: Gilroy-bold;
+  src: url(../../assets/Gilroy/Gilroy-ExtraBold.otf);
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.teacher-dashboard {
+  display: flex;
+  height: 100vh;
+  background-color: #ffffff;
+  color: #333;
+}
+
+.navigation-menu {
+  width: 250px;
+  background-color: #14121e; /* Updated color */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* To push bottom options down */
+  border-radius: 0; /* Removed rounding */
+}
+
+.navigation-menu h1 {
+  color: #ffffff;
+  margin: 10px 0 5px;
+  font-family: 'Gilroy-bold';
+}
+
+.navigation-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.navigation-menu ul li {
+  padding: 15px 20px;
+  padding-left: 35px;
+  padding-bottom: 30px;
+  text-align: left;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.navigation-menu ul li:hover {
+  background-color: #1f1d29;
+  transform: scale(1.05);
+  border-radius: 5px;
+}
+
+/* Styling for the navigation links */
+.nav-link {
+  color: inherit; /* Inherits the color of the parent element */
+  text-decoration: none; /* Removes the underline */
+  display: flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  color: #f0f0f0; /* Optional: Add a hover effect */
+}
+
+/* If you want to style the active state */
+.nav-link-active {
+  color: #ff6347; /* Optional: Change color when the link is active */
+}
+
+
+.nav-icon {
+  margin-right: 15px;
+  color: #ffffff; /* Adjust icon color */
+  font-size: 24px; /* Adjust size as needed */
+}
+
+/* Bottom Options Styling */
+.bottom-options {
+  margin-top: auto; /* Push to bottom */
+  width: 100%;
+}
+
+.bottom-options ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.bottom-options ul li {
+  padding: 15px 20px;
+  padding-left: 35px;
+  text-align: left;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.bottom-options ul li:hover {
+  background-color: #1f1d29;
+  transform: scale(1.05);
+  border-radius: 5px;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  background-color: #f9fafb;
+}
+
+.calendar-container {
+  flex: 2;
+  padding-right: 20px;
+  border-right: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.event-list {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.event {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.event h4 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.event p {
+  margin: 2px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Minimal and Modern Calendar Styles */
+.fc-toolbar-title {
+  font-size: 22px;
+  color: #333;
+  font-weight: 500;
+}
+
+.fc-button-primary {
+  background-color: #14121e;
+  border-color: #14121e;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.fc-button-primary:hover {
+  background-color: #1f1d29;
+  transform: scale(1.05);
+}
+
+.fc-daygrid-event {
+  background-color: #3498db;
+  color: #ffffff;
+  border-radius: 3px;
+  padding: 2px 5px;
+  font-weight: 500;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fc-daygrid-event-dot {
+  background-color: #ffffff;
+}
