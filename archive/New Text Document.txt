@@ -1,0 +1,3 @@
+to turn on the
+
+mongod --port 2717 --dbpath F:\asgn\database\mongos\db1 --replSet myReplicaSet
