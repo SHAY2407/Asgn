@@ -1,0 +1,38 @@
+# Ignore node_modules (since they are handled by npm install)
+node_modules/
+
+# Ignore all log files
+*.log
+
+# Ignore environment variable files
+.env
+
+# Ignore backup files
+*.bak
+*.swp
+
+# Ignore build artifacts for React (will be rebuilt in Dockerfile)
+client/build/
+
+# Ignore any temporary or IDE-related files
+.vscode/
+.idea/
+*.iml
+
+# Ignore archives or temporary files
+archive/
+
+# Ignore unnecessary files in the model folder (only requirements.txt and app.py are needed)
+model/data/*.csv
+model/data/*.ipynb
+model/notebooks
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+
+database/
+database/db1/
+database/db2/
+database/db3/

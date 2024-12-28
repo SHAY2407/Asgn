@@ -1,0 +1,70 @@
+services:
+  # Frontend Service
+  frontend:
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+    depends_on:
+      - backend
+
+  # Backend Service
+  backend:
+    build:
+      context: ./server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/app
+    depends_on:
+      - ml-model
+      - mongo1
+
+  # ML Model Service
+  ml-model:
+    build:
+      context: ./model
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./model:/app
+
+  # MongoDB Replica Set 1
+  mongo1:
+    image: mongo:6.0
+    container_name: mongo1
+    ports:
+      - "2717:27017"
+    volumes:
+      - mongo1_data:/data/db
+    command: mongod --replSet myReplicaSet --port 27017
+
+  # MongoDB Replica Set 2
+  mongo2:
+    image: mongo:6.0
+    container_name: mongo2
+    ports:
+      - "2727:27017"
+    volumes:
+      - mongo2_data:/data/db
+    command: mongod --replSet myReplicaSet --port 27017
+
+  # MongoDB Replica Set 3
+  mongo3:
+    image: mongo:6.0
+    container_name: mongo3
+    ports:
+      - "2737:27017"
+    volumes:
+      - mongo3_data:/data/db
+    command: mongod --replSet myReplicaSet --port 27017
+
+volumes:
+  mongo1_data:
+    driver: local
+  mongo2_data:
+    driver: local
+  mongo3_data:
+    driver: local

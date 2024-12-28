@@ -19,16 +19,34 @@ app.use(express.json());
 
 // Configure CORS to allow requests from the frontend
 app.use(cors({
-  origin: 'http://localhost:5173', // Replace with the frontend's URL and port
+  origin: 'http://localhost:8001', // Replace with the frontend's URL and port
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow cookies, authorization headers, etc.
 }));
 
 // Connect to MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/education", {
+// Connect to MongoDB replica set
+mongoose.connect("mongodb://mongo:2747/education?replicaSet=rs0&serverSelectionTimeoutMS=2000", {
   useNewUrlParser: true,
   useUnifiedTopology: true
+})
+.then(() => {
+  console.log("Connected to MongoDB replica set.");
+
+  // Add a route to list collections
+  app.get('/collections', async (req, res) => {
+    try {
+      const collections = await mongoose.connection.db.listCollections().toArray();
+      res.json(collections);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+})
+.catch(err => {
+  console.error("Connection error:", err);
 });
+
 
 // Multer storage configuration for saving PDFs
 const storage = multer.diskStorage({
