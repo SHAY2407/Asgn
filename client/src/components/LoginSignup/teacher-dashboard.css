@@ -83,7 +83,6 @@ body {
   color: #ff6347; /* Optional: Change color when the link is active */
 }
 
-
 .nav-icon {
   margin-right: 15px;
   color: #ffffff; /* Adjust icon color */
@@ -124,39 +123,109 @@ body {
   flex: 1;
   padding: 20px;
   background-color: #f9fafb;
+  gap: 20px;
 }
 
 .calendar-container {
-  flex: 2;
-  padding-right: 20px;
-  border-right: 1px solid #e0e0e0;
+  flex: 3; /* Increased to make calendar wider relative to card */
   background-color: #ffffff;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.event-list {
-  flex: 1;
-  padding-left: 20px;
-}
-
-.event {
-  background-color: #ffffff;
-  padding: 15px;
-  margin-bottom: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.event h4 {
-  margin: 0;
-  font-size: 20px;
+.info-card {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   color: #333;
+  max-width: 350px;
+  height: 400px;
 }
 
-.event p {
-  margin: 2px 0;
-  font-size: 16px;
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.header-icon {
+  width: 24px;
+  height: 24px;
+  color: #14121e;
+}
+
+.card-header h2 {
+  color: #14121e;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-header p {
+  color: #666;
+  margin: 4px 0 0 0;
+  font-size: 0.875rem;
+}
+
+.insights-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.insight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f4f4f9;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.insight-item:hover {
+  background-color: #e8e8f0;
+}
+
+.insight-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.insight-icon.warning {
+  color: #ffa000;
+}
+
+.insight-icon.success {
+  color: #4caf50;
+}
+
+.insight-icon.info {
+  color: #2196f3;
+}
+
+.insight-icon.purple {
+  color: #9c27b0;
+}
+
+.insight-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.insight-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #14121e;
+}
+
+.insight-value {
+  font-size: 0.875rem;
   color: #666;
 }
 
@@ -190,3 +259,4 @@ body {
 .fc-daygrid-event-dot {
   background-color: #ffffff;
 }
+

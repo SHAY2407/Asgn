@@ -7,6 +7,7 @@ const fs = require('fs');
 const TeachersModel = require('./models/Teachers');
 const StudentsModel = require('./models/Students');
 const AssignmentsModel = require('./models/Assignments'); // Import the AssignmentsModel
+require('./changeStream.js');
 
 // Create uploads folder if it doesn't exist
 const uploadDirectory = './uploads';
@@ -19,14 +20,15 @@ app.use(express.json());
 
 // Configure CORS to allow requests from the frontend
 app.use(cors({
-  origin: 'http://localhost:8001', // Replace with the frontend's URL and port
+  origin: 'http://localhost:5173', // Replace with the frontend's URL and port
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow cookies, authorization headers, etc.
 }));
 
 // Connect to MongoDB
 // Connect to MongoDB replica set
-mongoose.connect("mongodb://mongo:2747/education?replicaSet=rs0&serverSelectionTimeoutMS=2000", {
+//mongoose.connect("mongodb://127.0.0.1:27017/education", {
+mongoose.connect("mongodb://127.0.0.1:2747/education?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

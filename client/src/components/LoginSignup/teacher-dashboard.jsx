@@ -2,34 +2,55 @@ import React, { useEffect } from 'react';
 import './teacher-dashboard.css';
 import { CiCalendar, CiSettings, CiLogout } from "react-icons/ci";
 import { PiNotebookLight, PiStudent, PiExam } from "react-icons/pi";
+import { AlertTriangle, TrendingUp, Calendar, Clock, Brain } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import { io } from 'socket.io-client';
 
 function Teacher() {
+  const socket = io("http://localhost:3002");
+
+  socket.on("connect", () => {
+    console.log("Connected to backend change stream.");
+  });
+
+  
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js';
     script.async = true;
+
     script.onload = () => {
       const calendarEl = document.getElementById('calendar');
       if (calendarEl) {
         const calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
-          events: [
-            {
-              title: 'Assignment 1',
-              start: '2024-08-22',
-              end: '2024-08-27',
-            },
-          ],
+          events: [], // Start with an empty events array
         });
-        calendar.render();
+
+        // Fetch events from the events.json file
+        fetch('/events.json')
+          .then(response => response.json())
+          .then(data => {
+            calendar.addEventSource(data);
+            calendar.render();
+          })
+          .catch(error => console.error("Error loading events:", error));
       }
     };
+
     document.body.appendChild(script);
+
+    socket.on("newEvent", (event) => {
+      if (calendar) {
+        calendar.addEvent(event);
+      } else {
+        console.warn("Calendar is not initialized yet.");
+      }
+    });
 
     return () => {
       document.body.removeChild(script);
+      socket.disconnect();
     };
   }, []);
 
@@ -72,13 +93,48 @@ function Teacher() {
 
       {/* Main Content */}
       <div className="main-content">
-        {/* Calendar */}
         <div id="calendar" className="calendar-container"></div>
-        {/* Event List */}
-        <div className="event-list">
-          <div className="event">
-            <h4>22-26 AUGUST: ASSIGNMENT 1</h4>
-            <p>Thursday, 22 August, 2024 - Monday, 26 August, 2024</p>
+        <div className="info-card">
+          <div className="card-header">
+            <Brain className="header-icon" />
+            <div>
+              <h2>AI-Powered Insights</h2>
+              <p>Real-time analytics and predictions</p>
+            </div>
+          </div>
+          
+          <div className="insights-container">
+            <div className="insight-item">
+              <AlertTriangle className="insight-icon warning" />
+              <div className="insight-content">
+                <span className="insight-title">Burnout Risk Alert</span>
+                <span className="insight-value">3 students at risk</span>
+              </div>
+            </div>
+
+            <div className="insight-item">
+              <TrendingUp className="insight-icon success" />
+              <div className="insight-content">
+                <span className="insight-title">Grade Trends</span>
+                <span className="insight-value">7 students changed</span>
+              </div>
+            </div>
+
+            <div className="insight-item">
+              <Calendar className="insight-icon info" />
+              <div className="insight-content">
+                <span className="insight-title">Workload Heatmap</span>
+                <span className="insight-value">Past 7 days</span>
+              </div>
+            </div>
+
+            <div className="insight-item">
+              <Clock className="insight-icon purple" />
+              <div className="insight-content">
+                <span className="insight-title">Deadline Optimizer</span>
+                <span className="insight-value">1 suggestion</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,3 +143,4 @@ function Teacher() {
 }
 
 export default Teacher;
+

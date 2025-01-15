@@ -22,26 +22,6 @@ services:
     networks:
       - asgn
 
-  backend:
-    build: ./server
-    container_name: backend
-    ports:
-      - 3001:3001
-    depends_on:
-      - mongo1
-    volumes:
-      - ./server:/app
-    networks:
-      - asgn
-
-  frontend:
-    build: ./client
-    container_name: frontend
-    ports:
-      - 8001:5173
-    networks:
-      - asgn
-
 networks:
   asgn:
     driver: bridge

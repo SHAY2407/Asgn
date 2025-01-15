@@ -10,7 +10,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 from flask_cors import CORS
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://127.0.0.1:2747/education?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4')
 db = client['education']
 
 app = Flask(__name__)
@@ -163,7 +163,7 @@ def predict_workload():
     date = pd.to_datetime(date_str)
 
     # Make future prediction (1 day forward)
-    future = prophet_model.make_future_dataframe(periods=1)
+    future = prophet_model.make_future_dataframe(periods=30)
     forecast = prophet_model.predict(future)
     forecasted_workload = forecast.loc[forecast['ds'] == date, 'yhat'].values[0]
 
@@ -221,9 +221,9 @@ def predict_assignment_days():
                 'active_assignments_count': active_assignments_count
             },
             'assignment_details': {
-                'title': latest_assignment.get('title'),
+                'title': latest_assignment.get('name'),
                 'username': username,
-                'created_at': latest_assignment.get('created_at')
+                'created_at': latest_assignment.get('createdAt')
             }
         }
         
