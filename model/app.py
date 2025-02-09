@@ -10,6 +10,8 @@ from pymongo import MongoClient
 from bson import ObjectId
 from flask_cors import CORS
 
+
+
 client = MongoClient('mongodb://127.0.0.1:2747/education?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4')
 db = client['education']
 
@@ -163,9 +165,13 @@ def predict_workload():
     date = pd.to_datetime(date_str)
 
     # Make future prediction (1 day forward)
-    future = prophet_model.make_future_dataframe(periods=30)
+    future = prophet_model.make_future_dataframe(periods=60)
     forecast = prophet_model.predict(future)
-    forecasted_workload = forecast.loc[forecast['ds'] == date, 'yhat'].values[0]
+    filtered_forecast = forecast.loc[forecast['ds'] == date, 'yhat']
+    if filtered_forecast.empty:
+        return jsonify({'error': 'No prediction available for this date'}), 400
+
+    forecasted_workload = filtered_forecast.values[0]
 
     return jsonify({'date': date_str, 'forecasted_workload': round(forecasted_workload, 2)})
 
