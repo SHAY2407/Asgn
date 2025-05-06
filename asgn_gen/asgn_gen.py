@@ -12,13 +12,13 @@ import markdown
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # MongoDB connection
-mongo_uri = "mongodb://127.0.0.1:2747/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4"
+mongo_uri = ""
 client = MongoClient(mongo_uri)
 db = client["education"]  # Database name
 collection = db["assignments"]  # Collection name
 
 # CrewAI setup
-API_KEY = "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"
+API_KEY = ""
 llm = LLM(model="groq/llama-3.3-70b-versatile", api_key=API_KEY)
 
 # Define the agent
