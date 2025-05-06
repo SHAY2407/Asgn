@@ -1,0 +1,438 @@
+/* Schedule Overview Container */
+.schedule-overview-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  margin-top: 16px;
+  min-height: 210px; /* Set a minimum height */
+  transition: all 0.3s ease;
+}
+
+/* Dark mode support */
+:global(.dark).schedule-overview-container {
+  background-color: #1f2937;
+  color: #e5e7eb;
+}
+
+/* Header Styles */
+.schedule-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  justify-content: space-between;
+}
+
+.schedule-icon {
+  width: 18px;
+  height: 18px;
+  color: #6366f1;
+  margin-right: 8px;
+}
+
+:global(.dark).schedule-icon {
+  color: #818cf8;
+}
+
+.schedule-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* Navigation Controls */
+.navigation-controls {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #d1d5db;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.nav-button:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.nav-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-button-disabled:hover {
+  background-color: white;
+  border-color: #d1d5db;
+}
+
+.nav-icon {
+  color: #000000;
+  stroke-width: 2.5;
+}
+
+:global(.dark).nav-button {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+:global(.dark).nav-button:hover {
+  background-color: #111827;
+  border-color: #6b7280;
+}
+
+:global(.dark).nav-button-disabled:hover {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+:global(.dark).nav-icon {
+  color: #ffffff;
+}
+
+/* Assignment Carousel - Fixed but Visually Rich */
+.assignment-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+  height: auto;
+  min-height: 150px; /* Ensure consistent height */
+}
+
+.assignment-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.assignment-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.assignment-carousel::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 4px;
+}
+
+:global(.dark).assignment-carousel::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
+
+/* Assignment Card - Fixed Height but Visually Rich */
+.assignment-card {
+  flex: 0 0 auto;
+  width: 220px;
+  height: 150px; /* Slightly taller for better proportions */
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(to bottom, white, #fafafa);
+}
+
+.assignment-card:hover {
+  border-color: #6366f1;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+:global(.dark).assignment-card {
+  border-color: #374151;
+  background: linear-gradient(to bottom, #1f2937, #111827);
+}
+
+:global(.dark).assignment-card:hover {
+  border-color: #818cf8;
+}
+
+/* Assignment Icon - Enhanced */
+.assignment-icon-container {
+  width: auto; /* Remove fixed width */
+  height: auto; /* Remove fixed height */
+  background-color: transparent; /* Remove background color */
+  box-shadow: none; /* Remove shadow */
+  margin-bottom: 0; /* Adjust spacing if needed */
+  transition: none; /* Remove hover effects */
+}
+
+.assignment-card:hover .assignment-icon-container {
+  transform: none; /* Remove hover scaling */
+}
+
+.assignment-icon {
+  width: 18px;
+  height: 18px;
+  color: #6366f1; /* Keep the icon color */
+}
+
+:global(.dark).assignment-icon {
+  color: #818cf8; /* Keep the icon color for dark mode */
+}
+
+/* Assignment Content */
+.assignment-content {
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.assignment-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #111827;
+}
+
+:global(.dark).assignment-title {
+  color: #f3f4f6;
+}
+
+/* Subject Badges - Enhanced */
+.subject-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.assignment-card:hover .subject-badge {
+  transform: scale(1.02);
+}
+
+.subject-math {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.subject-science {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.subject-english {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+}
+
+.subject-history {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Default badge style for other subjects */
+.subject-badge:not(.subject-math):not(.subject-science):not(.subject-english):not(.subject-history) {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+:global(.dark).subject-math {
+  background-color: #1e3a8a;
+  color: #bfdbfe;
+}
+
+:global(.dark).subject-science {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+:global(.dark).subject-english {
+  background-color: #581c87;
+  color: #e9d5ff;
+}
+
+:global(.dark).subject-history {
+  background-color: #78350f;
+  color: #fef3c7;
+}
+
+:global(.dark).subject-badge:not(.subject-math):not(.subject-science):not(.subject-english):not(.subject-history) {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+/* Due Date Section - Enhanced */
+.assignment-due {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.time-left {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.assignment-card:hover .time-left {
+  transform: scale(1.02);
+}
+
+.status-urgent {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-upcoming {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-future {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+:global(.dark).status-urgent {
+  background-color: #7f1d1d;
+  color: #fecaca;
+}
+
+:global(.dark).status-upcoming {
+  background-color: #78350f;
+  color: #fef3c7;
+}
+
+:global(.dark).status-future {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+.due-date {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+:global(.dark).due-date {
+  color: #9ca3af;
+}
+
+.clock-icon {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.assignment-card:hover .clock-icon {
+  opacity: 1;
+}
+
+/* Loading State Enhancements */
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* No Assignments State Enhancement */
+.no-assignments {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  color: #6b7280;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 660px) {
+  .assignment-card {
+    width: 180px;
+  }
+}
+
+.reason-button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  background-color: #6366f1;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reason-button:hover {
+  background-color: #4f46e5;
+}
+
+.reason-button:focus {
+  outline: none;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.close-button:hover {
+  color: #111827;
+}

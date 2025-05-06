@@ -2,13 +2,15 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 import pickle
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timezone
 from sklearn.ensemble import RandomForestRegressor
 from prophet import Prophet
 import numpy as np
 from pymongo import MongoClient
 from bson import ObjectId
 from flask_cors import CORS
+import subprocess
+import json
 
 
 
@@ -165,7 +167,7 @@ def predict_workload():
     date = pd.to_datetime(date_str)
 
     # Make future prediction (1 day forward)
-    future = prophet_model.make_future_dataframe(periods=60)
+    future = prophet_model.make_future_dataframe(periods=120)
     forecast = prophet_model.predict(future)
     filtered_forecast = forecast.loc[forecast['ds'] == date, 'yhat']
     if filtered_forecast.empty:
@@ -250,6 +252,66 @@ def predict_assignment_days():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+from datetime import datetime, timezone
+import pandas as pd
+
+from bson import ObjectId
+
+@app.route('/schedule_assignment', methods=['POST'])
+def schedule_assignment():
+    try:
+        # Run scheduling script
+        result = subprocess.run(["python", "asgn_schd/asgn_schd.py"], capture_output=True, text=True)
+
+        if result.returncode != 0:
+            return jsonify({'error': 'Failed to execute scheduling agent', 'details': result.stderr}), 500
+
+        # Extract the last valid JSON block
+        output_lines = result.stdout.strip().split("\n")
+        json_output = output_lines[-1]  # Take the last line, assuming it's the JSON
+
+        try:
+            schedule_result = json.loads(json_output)
+            start_date = schedule_result.get("start_date")
+            reason = schedule_result.get("reason")  # Extract reason
+        except json.JSONDecodeError:
+            return jsonify({'error': 'Invalid JSON output from scheduling agent', 'details': result.stdout}), 500
+
+        # Fetch the latest assignment details from MongoDB
+        latest_assignment = db.assignment_prediction.find_one({}, sort=[("_id", -1)])
+        if not latest_assignment:
+            return jsonify({'error': 'No assignment prediction found'}), 500
+
+        assignment_id = latest_assignment["_id"]
+        title = latest_assignment["assignment_details"]["title"]
+        predicted_days = latest_assignment["predicted_days"]
+
+        # Convert start_date string to datetime object
+        start_date_dt = datetime.fromisoformat(start_date).replace(tzinfo=timezone.utc)
+
+        # Store scheduled assignment in MongoDB
+        db.scheduled_assignments.insert_one({
+            "assignment_id": ObjectId(assignment_id),
+            "title": title,
+            "start_date": start_date_dt,
+            "predicted_days": predicted_days,
+            "reason": reason,  # Include the reason in the database
+            "created_at": datetime.now(timezone.utc)
+        })
+
+        return jsonify({
+            "assignment_id": str(assignment_id),
+            "title": title,
+            "start_date": start_date,
+            "predicted_days": predicted_days,
+            "reason": reason  # Include the reason in the response
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

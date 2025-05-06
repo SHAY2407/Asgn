@@ -260,3 +260,26 @@ body {
   background-color: #ffffff;
 }
 
+/* In your teacher-dashboard.css */
+.assignment-dna-wrapper {
+  margin-top: 20px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+/* Make sure the component centers properly */
+.assignment-dna-wrapper .assignment-dna {
+  margin: 0 auto;
+}
+.info-card + .assignment-dna {
+  margin-top: 20px; /* Adds a gap between the two cards */
+}
+.schedule-overview {
+  margin-bottom: -255px; /* Increase this value to add more space */
+  padding-bottom: 10px;
+}

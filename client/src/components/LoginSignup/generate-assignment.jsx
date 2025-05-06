@@ -5,6 +5,7 @@ import { PiNotebookLight, PiStudent, PiExam } from "react-icons/pi";
 import { Save } from 'lucide-react';
 import { Card, CardContent, Typography, Slider, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import { Link } from 'react-router-dom';
+import PDFViewer from './PDFViewer';
 
 const Assignment = () => {
   const initialFormState = {
@@ -33,6 +34,24 @@ const Assignment = () => {
       }
     } catch (error) {
       console.error('Error fetching predicted days:', error);
+    }
+  };
+  const scheduleAssignment = async (predictedDays) => {
+    try {
+      const response = await fetch('http://localhost:5000/schedule_assignment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ predicted_days: predictedDays })
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Assignment scheduled successfully:', data);
+      } else {
+        console.error('Failed to schedule assignment:', data.error);
+      }
+    } catch (error) {
+      console.error('Error scheduling assignment:', error);
     }
   };
 
@@ -94,6 +113,7 @@ const Assignment = () => {
         resetForm();
         // Fetch predicted days after saving assignment
         await fetchPredictedDays();  // Trigger the API call to get predicted days after save
+        await scheduleAssignment();
       } else {
         alert('Failed to save assignment');
       }
@@ -284,7 +304,7 @@ const Assignment = () => {
             </CardContent>
           </Card>
         </div>
-
+        
         <div className="predicted-days-section">
           <Card className="predicted-days-card">
             <CardContent>
@@ -292,20 +312,16 @@ const Assignment = () => {
               {predictedDays !== null ? (
                 <>
                   <Typography variant="h4">{predictedDays.toFixed(2)} days</Typography>
-                  <Button 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={handleMakeAssignment}
-                  >
-                    Make Assignment
-                  </Button>
+                  
                 </>
               ) : (
                 <Typography variant="body1">Click "Save Assignment" to fetch predicted days...</Typography>
               )}
             </CardContent>
           </Card>
+          {<PDFViewer pdfUrl="/rdr2.pdf" />}
         </div>
+
       </div>
     </div>
   );

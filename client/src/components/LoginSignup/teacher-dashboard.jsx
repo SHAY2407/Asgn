@@ -5,6 +5,8 @@ import { PiNotebookLight, PiStudent, PiExam } from "react-icons/pi";
 import { AlertTriangle, TrendingUp, Calendar, Clock, Brain } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import AssignmentDNA from './assignment-dna';
+import ScheduleOverview from './schedule-overview';
 
 function Teacher() {
   const socket = io("http://localhost:3002");
@@ -93,7 +95,13 @@ function Teacher() {
 
       {/* Main Content */}
       <div className="main-content">
-        <div id="calendar" className="calendar-container"></div>
+        <div><div id="calendar" className="calendar-container">
+          {/* Schedule overview should render below calendar*/}
+          
+        </div><ScheduleOverview /></div>
+        
+
+        
         <div className="info-card">
           <div className="card-header">
             <Brain className="header-icon" />
@@ -136,7 +144,9 @@ function Teacher() {
               </div>
             </div>
           </div>
+          <AssignmentDNA />
         </div>
+
       </div>
     </div>
   );

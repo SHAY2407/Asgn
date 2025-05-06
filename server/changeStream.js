@@ -30,27 +30,40 @@ mongoose
 
 function startChangeStream() {
   const db = mongoose.connection.db;
-  const collection = db.collection("assignment_prediction");
+  const collection = db.collection("scheduled_assignments");
+
+  // Set up Socket.io connection handler
+  io.on("connection", async (socket) => {
+    console.log("Client connected to socket");
+    
+    // Handle request for initial assignments
+    socket.on("getInitialAssignments", async () => {
+      try {
+        // Get all documents from the collection
+        const assignments = await collection.find({}).toArray();
+        console.log(`Sending ${assignments.length} initial assignments to client`);
+        socket.emit("initialAssignments", assignments);
+      } catch (error) {
+        console.error("Error fetching initial assignments:", error);
+        socket.emit("initialAssignments", []);
+      }
+    });
+  });
 
   const changeStream = collection.watch([
     { $match: { operationType: "insert" } },
   ]);
 
-  console.log(
-    "Listening for new documents in assignment_prediction collection..."
-  );
+  console.log("Listening for new documents in scheduled_assignments collection...");
 
   changeStream.on("change", (change) => {
     const newDocument = change.fullDocument;
 
     // Create the event object for FullCalendar
     const event = {
-      title: `Assignment: ${newDocument.assignment_details?.title || "Unnamed"}`,
-      start: formatDate(newDocument.prediction_date), // Format start date
-      end: calculateEndDate(
-        newDocument.prediction_date,
-        newDocument.predicted_days
-      ), // Calculate and format end date
+      title: newDocument.title,
+      start: formatDate(newDocument.start_date), // Format start date
+      end: calculateEndDate(newDocument.start_date, newDocument.predicted_days),
     };
 
     console.log("Emitting new event:", event);

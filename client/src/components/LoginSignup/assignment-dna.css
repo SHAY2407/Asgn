@@ -1,0 +1,216 @@
+/* Main container */
+.assignment-dna {
+    flex: 1; /* Matches the flex property of the AI Insights panel */
+    background-color: #ffffff;
+    padding: 20px; /* Matches the padding of the AI Insights panel */
+    border-radius: 10px; /* Matches the border radius of the AI Insights panel */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Matches the shadow of the AI Insights panel */
+    color: #333; /* Matches the text color of the AI Insights panel */
+    max-width: 350px; /* Matches the max-width of the AI Insights panel */
+    height: 430px; /* Matches the height of the AI Insights panel */
+    width: 6000px;
+    margin-top: 40px; /* Adds spacing between the AI Insights panel and AssignmentDNA */
+    margin-left: -20px;
+  }
+  
+  /* Header styles */
+  .dna-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .header-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dna-icon {
+    width: 24px;
+    height: 24px;
+    color: #6366f1;
+    margin-right: 8px;
+  }
+  
+  .dna-header h2 {
+    font-size: 1.25rem; /* Matches the font size of the AI Insights header */
+    font-weight: 600; /* Matches the font weight of the AI Insights header */
+    margin: 0;
+  }
+  
+
+  
+  /* Stats container */
+  .stats-container {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .stat-box {
+    flex: 1;
+    background-color: #f4f4f9; /* Matches the background color of the AI Insights items */
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .stat-label {
+    font-size: 0.875rem; /* Matches the font size of the AI Insights items */
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    color: #666;
+  }
+  
+  .stat-value {
+    font-size: 1.125rem; /* Matches the font size of the AI Insights values */
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .stat-value.attention {
+    color: #f59e0b;
+  }
+  
+  /* Info alert */
+  .info-alert {
+    display: flex;
+    align-items: center;
+    background-color: #ebf8ff;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  
+  .info-icon {
+    width: 16px;
+    height: 16px;
+    color: #3b82f6;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  
+  .info-alert p {
+    font-size: 0.75rem; /* Matches the font size of the AI Insights descriptions */
+    color: #1e40af;
+    margin: 0;
+  }
+  
+  /* Skills grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 12px;
+    margin-left: -10px;
+    height: 230px;
+  }
+  
+  .skill-card {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    padding-right: 5px;
+    border-radius: 8px;
+    position: relative;
+    transition: background-color 0.2s;
+  }
+  
+  .skill-card:hover {
+    background-color: #f4f4f9;
+  }
+  
+  /* Circular progress */
+  .circular-progress {
+    position: relative;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .circular-progress svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .circle-bg {
+    color: #e2e8f0;
+  }
+  
+  .circle-progress {
+    color: #6366f1;
+  }
+  
+  .circular-progress.low .circle-progress {
+    color: #ef4444;
+  }
+  
+  .circular-progress.medium .circle-progress {
+    color: #f59e0b;
+  }
+  
+  .circular-progress.high .circle-progress {
+    color: #6366f1;
+  }
+  
+  .progress-value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  
+  /* Skill info */
+  .skill-info {
+    margin-left: 5px;
+    overflow: hidden;
+  }
+  
+  .skill-name {
+    font-size: 0.830rem;
+    font-weight: 500;
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .skill-stat {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin: 0 0 2px 0;
+  }
+  
+  /* Trend icons */
+  .trend-container {
+    margin-left: auto;
+  }
+  
+  .trend-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .trend-up {
+    color: #10b981;
+  }
+  
+  .trend-down {
+    color: #ef4444;
+  }
+  
+  .trend-stable {
+    color: #94a3b8;
+  }
+  
+  
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
