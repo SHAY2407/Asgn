@@ -4,14 +4,14 @@ from datetime import datetime, timedelta
 from crewai import Agent, Task, Crew, LLM
 
 # MongoDB connection
-mongo_uri = "mongodb://127.0.0.1:2747/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4"
+mongo_uri = ""
 client = MongoClient(mongo_uri)
 db = client["education"]
 assignments_collection = db["assignments"]
 predictions_collection = db["assignment_prediction"]
 
 # CrewAI setup
-API_KEY = "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"  # Add your Groq API key
+API_KEY = ""  # Add your Groq API key
 llm = LLM(model="groq/llama-3.3-70b-versatile", api_key=API_KEY)
 
 # Get current date for default scheduling
